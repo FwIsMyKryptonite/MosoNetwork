@@ -1,0 +1,271 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/MyScript/ligerUIV1.1.9/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <link href="~/MyScript/ligerUIV1.1.9/skins/ligerui-icons.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.9.0.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.8.2.min.js"></script>*@
+    <script src="~/MyScript/LigerUIV1.3.3/js/core/base.js"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerGrid.js" type="text/javascript"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerToolBar.js" type="text/javascript"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerResizable.js" type="text/javascript"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerCheckBox.js" type="text/javascript"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerTextBox.js" type="text/javascript"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerDialog.js" type="text/javascript"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerMessageBox.js"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerDrag.js"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerTip.js"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerButton.js"></script>
+    <script src="~/MyScript/ligerUIV1.1.9/js/plugins/ligerComboBox.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Scripts/MyAjaxForm.js"></script>
+    <style type="text/css">
+        #addDiv td {
+            /*border-left: 1px solid #C1DAD7;
+            border-right: 1px solid #C1DAD7;
+            border-bottom: 1px solid #C1DAD7;*/
+            /*background: #fff;
+            font-size: 11px;*/
+            padding: 1px 1px 1px 1px;
+            /*color: #4f6b72;*/
+        }
+    </style>
+    <script type="text/javascript">
+        var grid, i;
+        $(function () {
+            loadGridData();
+        });
+        //分页加载数据
+        function loadGridData(pars) {
+            grid = $("#managerInfoGrid").ligerGrid({
+                //title: '管理员权限',
+                url: '/managerinfo/GetManagerInfoList',
+                parms: pars,
+                root: 'Rows',//数据源字段名,默认Rows
+                record: 'Total',//数据源记录数字段名,默认Total
+                pageParmName: 'page',//页索引参数名，(提交给服务器),默认page
+                pagesizeParmName: 'pagesize',//页记录数参数名，(提交给服务器),默认pagesize
+                height: '100%',
+                width: '100%',
+                inWindow: true,
+                rowHeight: 22,//行默认高度22
+                headerRowHeight: 23,//表头行的高度默认23
+                pageSize: 15,//默认每页显示数据量
+                pageSizeOptions: [15, 20, 30, 40, 50],  //可选择设定的每页结果数
+                rownumbers: false,//显示行数
+                //isScroll: false,//是否允许右侧滚动条,开启之后表格底部状态栏会提升贴近最后一条数据
+                alternatingRow: true,//是否附加奇偶行效果行
+                frozen: true,
+                resizable: true,
+                //allowUnSelectRow: true, //再次点击后取消选中
+                //checkbox: true,//是否显示checkbox
+                //selectRowButtonOnly: true,//只允许点击checkbox选中
+                //enabledEdit: true,//允许编辑
+                //detailToEdit: true,//是否启用明细编辑模式,默认false
+                //frozenDetail :true,
+                //colDraggable: true,
+                //rowDraggable: true,
+                columns: [
+                { display: '<b>编号</b>', name: 'Id', width: 30, frozen: true },
+                { display: '<b>管理员</b>', name: 'MName', minWidth: 90, editor: { type: 'text' }, frozen: true },
+                { display: '<b>密码</b>', name: 'MPwd', minWidth: 90, editor: { type: 'text' }, frozen: true },
+                { display: '<b>备注</b>', name: 'Remark', minWidth: 90, editor: { type: 'text' }, frozen: true },
+                { display: '<b>排序</b>', name: 'Sort', minWidth: 90, editor: { type: 'text' } },
+                {
+                    display: '<b>时间</b>', name: 'SubTime', minWidth: 90, editor: { type: 'text' },
+                    render: function (rowdata, index, value) {
+                        return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d");
+                    }
+                },
+                ],
+
+                toolbar: {
+                    height: 50,
+                    items: [
+                    { text: '<b>增加</b>', icon: 'add', click: test },
+                    { line: true },
+                    { text: '<b>删除</b>', img: '/Content/lib/ligerUI/skins/icons/delete.gif', click: deleteRow },
+                    { line: true },
+                    { text: '<b>编辑</b>', icon: 'modify', click: test },
+                    { line: true },
+                    { text: '<b>为管理员分配角色</b>', icon: 'coffee', click: setManagerRole },
+                    { line: true },
+                    { text: '<b>明细</b>', icon: 'coffee', click: test },
+                    ]
+                },
+                ////双击触发事件
+                //onDblClickRow: function (data, rowindex, rowobj) {
+                //    var t = $.ligerDialog.alert('选择的是' + data.Id);
+                //    setTimeout(function () { t.hide(); }, 1000);
+                //}
+            });
+            $("#pageloading").hide();
+        }
+
+        function test() {
+
+        }
+
+        //菜单栏删除按钮点击事件
+        function deleteRow() {
+            //grid.deleteSelectedRow();
+            //if (!confirm("确定删除?")) {
+            //    return false;
+            //}
+            var gridManager = $("#managerInfoGrid").ligerGetGridManager();
+            var rows = gridManager.getCheckedRows();
+            if (rows.length != 0) {
+                $.ligerDialog.confirm('确定要删除吗？', function (userClicked) {
+                    if (userClicked) {
+                        gridManager.deleteSelectedRow();
+                    }
+                });
+            } else {
+                $.ligerDialog.alert('您未选中任何数据', '提示', 'none');
+            }
+        }
+
+        //为管理员分配角色
+        var tt, i = 0;
+        function setManagerRole() {
+            var rows = grid.getCheckedRows();
+            //var nameId = "setManagerRole" + i;
+            if (rows.length != 0) {
+                tt = $.ligerDialog.open({
+                    title: '为管理员分配角色',
+                    //id:'actionInfo',//给LigerUI.Dialog对象创建Id属性
+                    //content: 'sdfsadfs',//内容追加
+                    //target: $("#showMainInfoActionDetailDiv"),//$("#showMainInfoActionDetail"),//目标对象，指定它将以appendTo()的方式载入
+                    url: "/managerinfo/ShowSetManagerRoleInfo/?managerId=" + rows[0].Id,//目标页url，默认以iframe的方式载入
+                    //name: nameId,//作为上面创建的iframe的name和id属性
+                    //name:'666666',
+                    height: null,//null表示自适应
+                    width: 280,//null表示自适应
+                    isHidden: true,//关闭对话框时是否只是隐藏，还是销毁对话框,默认true
+                    isResize: false,//是否可调整大小，默认true
+                    slide: false,//是否启动动画效果,默认false
+                    buttons: [
+                        {
+                            text: '确定',
+                            onclick: function (item, dialog) {
+                                //var childWindow = $("#" + nameId)[0].contentWindow; //$("#showMainInfoActionDetail")[0].contentWindow;
+                                //var childWindow = $("#666666")[0].contentWindow;//这样只会提交第一次弹出的对话表单的值
+                                //var childWindow = tt.element.children[0].children[0].children[1].children[1].children[0].children[0].children[0].contentWindow;
+                                var childWindow = $(tt.element).find("iframe")[0].contentWindow;//tt.element即为构成对话框的最外层div
+                                childWindow.subForm();
+                                //i++;
+                                dialog.hide();
+                            }
+                        },
+                        {
+                            text: '取消',
+                            onclick: function (item, dialog) {
+                                dialog.hidden();
+                            }
+                        }
+                    ]
+                });
+            } else {
+                $.ligerDialog.alert('您未选中任何数据', '提示', 'none');
+            }
+        }
+
+        function afterSetManagerRoleInfo(data) {
+            if (data == "ok") {
+                tt = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">保存成功<span/>' });
+                setTimeout(function () { $(tt.element).slideUp(500); }, 1000);
+            } else if (data == "no") {
+                tt = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">服务器忙啊,请稍后再试<span/>' });
+                setTimeout(function () { $(tt.element).slideUp(500); }, 1000);
+            } else {
+                tt = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">您未作任何更改<span/>' });
+                setTimeout(function () { $(tt.element).slideUp(500); }, 1000);
+            }
+        }
+
+        ////添加权限信息
+        ////var nameId = "addActionInfo" + i;
+        //function addActionInfo() {
+        //    //reWriteAddActionInfoForm();//打开对话框之前重置表单，666
+        //    $("#addDiv input").val("");//打开前表单重置
+        //    $("#btnFileUp").val("上传图片");//上面一部把这个也清除掉了，这里重新加上
+        //    $("#showTr").css({ display: "none" });
+        //    $("#actionTypeEnumChange").val("0");
+        //    $("#httpMethod").val("POST");
+        //    $.ligerDialog.open({
+        //        title: '添加权限信息',
+        //        target: $("#addDiv"),
+        //        //id: nameId,
+        //        allowClose: true,
+        //        height: null,//null表示自适应
+        //        width: 280,//null表示自适应
+        //        isResize: true,//是否可调整大小，默认true
+        //        isHidden: true,//关闭对话框时是否只是隐藏，还是销毁对话框,默认true（如果是true，执行的是close，如果是false，执行的是hidden）
+        //        buttons: [
+        //            {
+        //                text: '确定',
+        //                onclick: function (item, dialog) {
+        //                    if (validateAddForm()) {
+        //                        $("#addForm").submit();
+        //                    }
+        //                    dialog.hidden();
+        //                    //i++;
+        //                }
+        //            },
+        //{
+        //    text: '取消',
+        //    onclick: function (item, dialog) {
+        //        dialog.hidden();
+        //    }
+        //}
+        //        ]
+        //    });
+        //}
+
+        ////添加权限表单验证
+        //function validateAddForm() {
+        //    var isPass = true;
+        //    if ($("#actionInfoName").val().trim().length == 0 || $("#url").val().trim().length == 0) {
+        //        var t = $.ligerDialog.tip({ id: '66666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">权限名称或者Url不能为空<span/>' });
+        //        //setTimeout(function () { $.ligerui.get('6666').hide(); }, 1500);
+        //        //setTimeout(function () { t.hide(); }, 1500);
+        //        //setTimeout("aa()", 1000);//再定义一个函数aa，也可实现下面的代码
+        //        setTimeout(function () { $(t.element).slideUp(500); }, 1000);//t.element就是用来显示的那个div，这里是[div#6666]，实现效果，弹出对话框并显示1秒后，在1秒钟内将对话框隐藏
+        //        isPass = false;
+        //    }
+        //    return isPass;
+        //}
+
+        ////添加表单提交后触发
+        //function afterAdd(serverData) {
+        //    var tt;
+        //    var data = serverData.split("*");
+        //    if (data[0] == "ok") {
+        //        tt = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">' + data[1] + '<span/>' });
+        //        setTimeout(function () { $(tt.element).slideUp(500); }, 1000);
+        //        grid.reload();
+        //    } else {
+        //        tt = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">' + data[1] + '<span/>' });
+        //        setTimeout(function () { $(tt.element).slideUp(500); }, 1000);
+        //    }
+        //}
+
+
+    </script>
+</head>
+<body style="padding: 3px; overflow: hidden;">
+    <div id="managerInfoGrid"></div>
+    <!--------------添加数据表单---------------------->
+    <div id="sdfsd"></div>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MosoNetModelStoreContainer" CdmEntityContainer="MosoNetEntities">
+    <EntitySetMapping Name="ADInfo">
+      <EntityTypeMapping TypeName="MosoNetModel.ADInfo">
+        <MappingFragment StoreEntitySet="ADInfo">
+          <ScalarProperty Name="AdAcount" ColumnName="AdAcount" />
+          <ScalarProperty Name="AdDisplay" ColumnName="AdDisplay" />
+          <ScalarProperty Name="AdCode" ColumnName="AdCode" />
+          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PermissionInfo">
+      <EntityTypeMapping TypeName="MosoNetModel.PermissionInfo">
+        <MappingFragment StoreEntitySet="PermissionInfo">
+          <ScalarProperty Name="PId" ColumnName="PId" />
+          <ScalarProperty Name="PName" ColumnName="PName" />
+          <ScalarProperty Name="PRemark" ColumnName="PRemark" />
+          <ScalarProperty Name="PSubTime" ColumnName="PSubTime" />
+          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StaffInfo">
+      <EntityTypeMapping TypeName="MosoNetModel.StaffInfo">
+        <MappingFragment StoreEntitySet="StaffInfo">
+          <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+          <ScalarProperty Name="StaffName" ColumnName="StaffName" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="Depart" ColumnName="Depart" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Floor" ColumnName="Floor" />
+          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MainInfo">
+      <EntityTypeMapping TypeName="MosoNetModel.MainInfo">
+        <MappingFragment StoreEntitySet="MainInfo">
+          <ScalarProperty Name="SName" ColumnName="SName" />
+          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+          <ScalarProperty Name="ScreenAsset" ColumnName="ScreenAsset" />
+          <ScalarProperty Name="PCAsset" ColumnName="PCAsset" />
+          <ScalarProperty Name="MacAddress" ColumnName="MacAddress" />
+          <ScalarProperty Name="Ip" ColumnName="Ip" />
+          <ScalarProperty Name="CompName" ColumnName="CompName" />
+          <ScalarProperty Name="AdCode" ColumnName="AdCode" />
+          <ScalarProperty Name="AdAcount" ColumnName="AdAcount" />
+          <ScalarProperty Name="EAddress" ColumnName="EAddress" />
+          <ScalarProperty Name="StaffName" ColumnName="StaffName" />
+          <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="MainInfoPermissionInfo" TypeName="MosoNetModel.MainInfoPermissionInfo" StoreEntitySet="MainInfoPermissionInfo">
+      <EndProperty Name="PermissionInfo">
+        <ScalarProperty Name="PId" ColumnName="PermissionInfo_Id" />
+      </EndProperty>
+      <EndProperty Name="MainInfo">
+        <ScalarProperty Name="Id" ColumnName="MainInfo_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="EmailInfo">
+      <EntityTypeMapping TypeName="MosoNetModel.EmailInfo">
+        <MappingFragment StoreEntitySet="EmailInfo">
+          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+          <ScalarProperty Name="EOut" ColumnName="EOut" />
+          <ScalarProperty Name="EPwd" ColumnName="EPwd" />
+          <ScalarProperty Name="EAcount" ColumnName="EAcount" />
+          <ScalarProperty Name="EDisplay" ColumnName="EDisplay" />
+          <ScalarProperty Name="EAddress" ColumnName="EAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ManagerInfo">
+      <EntityTypeMapping TypeName="MosoNetModel.ManagerInfo">
+        <MappingFragment StoreEntitySet="ManagerInfo">
+          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+          <ScalarProperty Name="Sort" ColumnName="Sort" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+          <ScalarProperty Name="MPwd" ColumnName="MPwd" />
+          <ScalarProperty Name="MName" ColumnName="MName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleInfo">
+      <EntityTypeMapping TypeName="MosoNetModel.RoleInfo">
+        <MappingFragment StoreEntitySet="RoleInfo">
+          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+          <ScalarProperty Name="Sort" ColumnName="Sort" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ManagerInfoRoleInfo" TypeName="MosoNetModel.ManagerInfoRoleInfo" StoreEntitySet="ManagerInfoRoleInfo">
+      <EndProperty Name="RoleInfo">
+        <ScalarProperty Name="Id" ColumnName="RoleInfo_Id" />
+      </EndProperty>
+      <EndProperty Name="ManagerInfo">
+        <ScalarProperty Name="Id" ColumnName="ManagerInfo_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="ActionInfo">
+      <EntityTypeMapping TypeName="MosoNetModel.ActionInfo">
+        <MappingFragment StoreEntitySet="ActionInfo">
+          <ScalarProperty Name="IconHeight" ColumnName="IconHeight" />
+          <ScalarProperty Name="IconWidth" ColumnName="IconWidth" />
+          <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+          <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+          <ScalarProperty Name="ActionMethodName" ColumnName="ActionMethodName" />
+          <ScalarProperty Name="HttpMethod" ColumnName="HttpMethod" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Sort" ColumnName="Sort" />
+          <ScalarProperty Name="ActionInfoType" ColumnName="ActionInfoType" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="ActionInfoName" ColumnName="ActionInfoName" />
+          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="O_ManagerInfo_ActionInfo">
+      <EntityTypeMapping TypeName="MosoNetModel.O_ManagerInfo_ActionInfo">
+        <MappingFragment StoreEntitySet="O_ManagerInfo_ActionInfo">
+          <ScalarProperty Name="IsPass" ColumnName="IsPass" />
+          <ScalarProperty Name="ActionInfo_Id" ColumnName="ActionInfo_Id" />
+          <ScalarProperty Name="ManagerInfo_Id" ColumnName="ManagerInfo_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="RoleInfoActionInfo" TypeName="MosoNetModel.RoleInfoActionInfo" StoreEntitySet="RoleInfoActionInfo">
+      <EndProperty Name="RoleInfo">
+        <ScalarProperty Name="Id" ColumnName="RoleInfo_Id" />
+      </EndProperty>
+      <EndProperty Name="ActionInfo">
+        <ScalarProperty Name="Id" ColumnName="ActionInfo_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

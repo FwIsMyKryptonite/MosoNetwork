@@ -1,0 +1,5 @@
+E:\0413ForWork\Moso.NetworkM\TestWhere\bin\Debug\TestWhere.exe.config
+E:\0413ForWork\Moso.NetworkM\TestWhere\bin\Debug\TestWhere.exe
+E:\0413ForWork\Moso.NetworkM\TestWhere\bin\Debug\TestWhere.pdb
+E:\0413ForWork\Moso.NetworkM\TestWhere\obj\Debug\TestWhere.exe
+E:\0413ForWork\Moso.NetworkM\TestWhere\obj\Debug\TestWhere.pdb

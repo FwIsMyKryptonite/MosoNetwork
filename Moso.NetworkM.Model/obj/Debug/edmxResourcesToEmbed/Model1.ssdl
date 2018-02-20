@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MosoNetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ActionInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DelFlag" Type="smallint" Nullable="false" />
+    <Property Name="ActionInfoName" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="256" />
+    <Property Name="ActionInfoType" Type="smallint" Nullable="false" />
+    <Property Name="Sort" Type="nvarchar(max)" />
+    <Property Name="Url" Type="nvarchar" MaxLength="512" Nullable="false" />
+    <Property Name="HttpMethod" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="ActionMethodName" Type="nvarchar" MaxLength="32" />
+    <Property Name="ControllerName" Type="nvarchar" MaxLength="32" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
+    <Property Name="MenuIcon" Type="varchar" MaxLength="512" />
+    <Property Name="IconWidth" Type="int" Nullable="false" />
+    <Property Name="IconHeight" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ADInfo">
+    <Key>
+      <PropertyRef Name="AdAcount" />
+    </Key>
+    <Property Name="AdAcount" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="AdDisplay" Type="nvarchar" MaxLength="32" />
+    <Property Name="AdCode" Type="nvarchar" MaxLength="32" />
+    <Property Name="DelFlag" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmailInfo">
+    <Key>
+      <PropertyRef Name="EAddress" />
+    </Key>
+    <Property Name="EAddress" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="EDisplay" Type="nvarchar" MaxLength="32" />
+    <Property Name="EAcount" Type="nvarchar" MaxLength="32" />
+    <Property Name="EPwd" Type="nvarchar" MaxLength="32" />
+    <Property Name="EOut" Type="smallint" />
+    <Property Name="DelFlag" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MainInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpId" Type="nvarchar" MaxLength="32" />
+    <Property Name="StaffName" Type="nvarchar" MaxLength="32" />
+    <Property Name="SName" Type="nvarchar" MaxLength="32" />
+    <Property Name="EAddress" Type="nvarchar" MaxLength="64" />
+    <Property Name="AdAcount" Type="nvarchar" MaxLength="32" />
+    <Property Name="AdCode" Type="nvarchar" MaxLength="32" />
+    <Property Name="CompName" Type="nvarchar" MaxLength="32" />
+    <Property Name="Ip" Type="nvarchar" MaxLength="32" />
+    <Property Name="MacAddress" Type="nvarchar" MaxLength="32" />
+    <Property Name="PCAsset" Type="nvarchar" MaxLength="32" />
+    <Property Name="ScreenAsset" Type="nvarchar" MaxLength="32" />
+    <Property Name="DelFlag" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MainInfoPermissionInfo">
+    <Key>
+      <PropertyRef Name="MainInfo_Id" />
+      <PropertyRef Name="PermissionInfo_Id" />
+    </Key>
+    <Property Name="MainInfo_Id" Type="int" Nullable="false" />
+    <Property Name="PermissionInfo_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ManagerInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MName" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="MPwd" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="SubTime" Type="date" />
+    <Property Name="ModifiedOn" Type="date" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="256" />
+    <Property Name="Sort" Type="nvarchar(max)" />
+    <Property Name="DelFlag" Type="smallint" />
+  </EntityType>
+  <EntityType Name="ManagerInfoRoleInfo">
+    <Key>
+      <PropertyRef Name="RoleInfo_Id" />
+      <PropertyRef Name="ManagerInfo_Id" />
+    </Key>
+    <Property Name="RoleInfo_Id" Type="int" Nullable="false" />
+    <Property Name="ManagerInfo_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="O_ManagerInfo_ActionInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ManagerInfo_Id" Type="int" Nullable="false" />
+    <Property Name="ActionInfo_Id" Type="int" Nullable="false" />
+    <Property Name="IsPass" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PermissionInfo">
+    <Key>
+      <PropertyRef Name="PId" />
+    </Key>
+    <Property Name="PId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PName" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="PRemark" Type="nvarchar" MaxLength="32" />
+    <Property Name="PSubTime" Type="datetime" />
+    <Property Name="DelFlag" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RoleInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="256" />
+    <Property Name="Sort" Type="nvarchar(max)" />
+    <Property Name="DelFlag" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RoleInfoActionInfo">
+    <Key>
+      <PropertyRef Name="ActionInfo_Id" />
+      <PropertyRef Name="RoleInfo_Id" />
+    </Key>
+    <Property Name="ActionInfo_Id" Type="int" Nullable="false" />
+    <Property Name="RoleInfo_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StaffInfo">
+    <Key>
+      <PropertyRef Name="EmpId" />
+    </Key>
+    <Property Name="EmpId" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="StaffName" Type="nvarchar" MaxLength="32" />
+    <Property Name="Company" Type="nvarchar" MaxLength="32" />
+    <Property Name="Depart" Type="nvarchar" MaxLength="32" />
+    <Property Name="Position" Type="nvarchar" MaxLength="32" />
+    <Property Name="Floor" Type="nvarchar" MaxLength="32" />
+    <Property Name="DelFlag" Type="smallint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_MainInfo_ADInfo">
+    <End Role="ADInfo" Type="Self.ADInfo" Multiplicity="0..1" />
+    <End Role="MainInfo" Type="Self.MainInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ADInfo">
+        <PropertyRef Name="AdAcount" />
+      </Principal>
+      <Dependent Role="MainInfo">
+        <PropertyRef Name="AdAcount" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MainInfo_EmailInfo">
+    <End Role="EmailInfo" Type="Self.EmailInfo" Multiplicity="0..1" />
+    <End Role="MainInfo" Type="Self.MainInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmailInfo">
+        <PropertyRef Name="EAddress" />
+      </Principal>
+      <Dependent Role="MainInfo">
+        <PropertyRef Name="EAddress" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MainInfo_StaffInfo">
+    <End Role="StaffInfo" Type="Self.StaffInfo" Multiplicity="0..1" />
+    <End Role="MainInfo" Type="Self.MainInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StaffInfo">
+        <PropertyRef Name="EmpId" />
+      </Principal>
+      <Dependent Role="MainInfo">
+        <PropertyRef Name="EmpId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MainInfoPermissionInfo_MainInfo">
+    <End Role="MainInfo" Type="Self.MainInfo" Multiplicity="1" />
+    <End Role="MainInfoPermissionInfo" Type="Self.MainInfoPermissionInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MainInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MainInfoPermissionInfo">
+        <PropertyRef Name="MainInfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MainInfoPermissionInfo_PermissionInfo">
+    <End Role="PermissionInfo" Type="Self.PermissionInfo" Multiplicity="1" />
+    <End Role="MainInfoPermissionInfo" Type="Self.MainInfoPermissionInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PermissionInfo">
+        <PropertyRef Name="PId" />
+      </Principal>
+      <Dependent Role="MainInfoPermissionInfo">
+        <PropertyRef Name="PermissionInfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ManagerInfoRoleInfo_ManagerInfo">
+    <End Role="ManagerInfo" Type="Self.ManagerInfo" Multiplicity="1" />
+    <End Role="ManagerInfoRoleInfo" Type="Self.ManagerInfoRoleInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ManagerInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ManagerInfoRoleInfo">
+        <PropertyRef Name="ManagerInfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ManagerInfoRoleInfo_RoleInfo">
+    <End Role="RoleInfo" Type="Self.RoleInfo" Multiplicity="1" />
+    <End Role="ManagerInfoRoleInfo" Type="Self.ManagerInfoRoleInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoleInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ManagerInfoRoleInfo">
+        <PropertyRef Name="RoleInfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_O_ManagerInfo_ActionInfo_ActionInfo_Id">
+    <End Role="ActionInfo" Type="Self.ActionInfo" Multiplicity="1" />
+    <End Role="O_ManagerInfo_ActionInfo" Type="Self.O_ManagerInfo_ActionInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ActionInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="O_ManagerInfo_ActionInfo">
+        <PropertyRef Name="ActionInfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_O_ManagerInfo_ActionInfo_ManagerInfo_Id">
+    <End Role="ManagerInfo" Type="Self.ManagerInfo" Multiplicity="1" />
+    <End Role="O_ManagerInfo_ActionInfo" Type="Self.O_ManagerInfo_ActionInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ManagerInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="O_ManagerInfo_ActionInfo">
+        <PropertyRef Name="ManagerInfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoleInfoActionInfo_ActionInfo">
+    <End Role="ActionInfo" Type="Self.ActionInfo" Multiplicity="1" />
+    <End Role="RoleInfoActionInfo" Type="Self.RoleInfoActionInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ActionInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleInfoActionInfo">
+        <PropertyRef Name="ActionInfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoleInfoActionInfo_RoleInfo">
+    <End Role="RoleInfo" Type="Self.RoleInfo" Multiplicity="1" />
+    <End Role="RoleInfoActionInfo" Type="Self.RoleInfoActionInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoleInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleInfoActionInfo">
+        <PropertyRef Name="RoleInfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MosoNetModelStoreContainer">
+    <EntitySet Name="ActionInfo" EntityType="Self.ActionInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ADInfo" EntityType="Self.ADInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmailInfo" EntityType="Self.EmailInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MainInfo" EntityType="Self.MainInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MainInfoPermissionInfo" EntityType="Self.MainInfoPermissionInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ManagerInfo" EntityType="Self.ManagerInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ManagerInfoRoleInfo" EntityType="Self.ManagerInfoRoleInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="O_ManagerInfo_ActionInfo" EntityType="Self.O_ManagerInfo_ActionInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PermissionInfo" EntityType="Self.PermissionInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RoleInfo" EntityType="Self.RoleInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RoleInfoActionInfo" EntityType="Self.RoleInfoActionInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StaffInfo" EntityType="Self.StaffInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_MainInfo_ADInfo" Association="Self.FK_MainInfo_ADInfo">
+      <End Role="ADInfo" EntitySet="ADInfo" />
+      <End Role="MainInfo" EntitySet="MainInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MainInfo_EmailInfo" Association="Self.FK_MainInfo_EmailInfo">
+      <End Role="EmailInfo" EntitySet="EmailInfo" />
+      <End Role="MainInfo" EntitySet="MainInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MainInfo_StaffInfo" Association="Self.FK_MainInfo_StaffInfo">
+      <End Role="StaffInfo" EntitySet="StaffInfo" />
+      <End Role="MainInfo" EntitySet="MainInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MainInfoPermissionInfo_MainInfo" Association="Self.FK_MainInfoPermissionInfo_MainInfo">
+      <End Role="MainInfo" EntitySet="MainInfo" />
+      <End Role="MainInfoPermissionInfo" EntitySet="MainInfoPermissionInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MainInfoPermissionInfo_PermissionInfo" Association="Self.FK_MainInfoPermissionInfo_PermissionInfo">
+      <End Role="PermissionInfo" EntitySet="PermissionInfo" />
+      <End Role="MainInfoPermissionInfo" EntitySet="MainInfoPermissionInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ManagerInfoRoleInfo_ManagerInfo" Association="Self.FK_ManagerInfoRoleInfo_ManagerInfo">
+      <End Role="ManagerInfo" EntitySet="ManagerInfo" />
+      <End Role="ManagerInfoRoleInfo" EntitySet="ManagerInfoRoleInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ManagerInfoRoleInfo_RoleInfo" Association="Self.FK_ManagerInfoRoleInfo_RoleInfo">
+      <End Role="RoleInfo" EntitySet="RoleInfo" />
+      <End Role="ManagerInfoRoleInfo" EntitySet="ManagerInfoRoleInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_O_ManagerInfo_ActionInfo_ActionInfo_Id" Association="Self.FK_O_ManagerInfo_ActionInfo_ActionInfo_Id">
+      <End Role="ActionInfo" EntitySet="ActionInfo" />
+      <End Role="O_ManagerInfo_ActionInfo" EntitySet="O_ManagerInfo_ActionInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_O_ManagerInfo_ActionInfo_ManagerInfo_Id" Association="Self.FK_O_ManagerInfo_ActionInfo_ManagerInfo_Id">
+      <End Role="ManagerInfo" EntitySet="ManagerInfo" />
+      <End Role="O_ManagerInfo_ActionInfo" EntitySet="O_ManagerInfo_ActionInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoleInfoActionInfo_ActionInfo" Association="Self.FK_RoleInfoActionInfo_ActionInfo">
+      <End Role="ActionInfo" EntitySet="ActionInfo" />
+      <End Role="RoleInfoActionInfo" EntitySet="RoleInfoActionInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoleInfoActionInfo_RoleInfo" Association="Self.FK_RoleInfoActionInfo_RoleInfo">
+      <End Role="RoleInfo" EntitySet="RoleInfo" />
+      <End Role="RoleInfoActionInfo" EntitySet="RoleInfoActionInfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

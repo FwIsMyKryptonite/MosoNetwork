@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5a8670aa256a4d1cbd8c78d1dcaa294c" Name="Diagram1">
+        <EntityTypeShape EntityType="MosoNetModel.ADInfo" Width="1.5" PointX="1.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MosoNetModel.PermissionInfo" Width="1.5" PointX="4.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MosoNetModel.StaffInfo" Width="1.5" PointX="2.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MosoNetModel.MainInfo" Width="1.5" PointX="2.875" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="MosoNetModel.FK_MainInfo_ADInfo" />
+        <AssociationConnector Association="MosoNetModel.FK_MainInfo_StaffInfo" />
+        <AssociationConnector Association="MosoNetModel.MainInfoPermissionInfo" />
+        <EntityTypeShape EntityType="MosoNetModel.EmailInfo" Width="1.5" PointX="4.625" PointY="0.5" />
+        <AssociationConnector Association="MosoNetModel.FK_MainInfo_EmailInfo" />
+        <EntityTypeShape EntityType="MosoNetModel.ManagerInfo" Width="1.5" PointX="7.125" PointY="0.5" />
+        <EntityTypeShape EntityType="MosoNetModel.RoleInfo" Width="1.5" PointX="9.125" PointY="0.5" />
+        <AssociationConnector Association="MosoNetModel.ManagerInfoRoleInfo" />
+        <EntityTypeShape EntityType="MosoNetModel.ActionInfo" Width="1.5" PointX="9.125" PointY="4.375" />
+        <EntityTypeShape EntityType="MosoNetModel.O_ManagerInfo_ActionInfo" Width="1.5" PointX="7.125" PointY="4.375" />
+        <AssociationConnector Association="MosoNetModel.FK_O_ManagerInfo_ActionInfo_ActionInfo_Id" />
+        <AssociationConnector Association="MosoNetModel.FK_O_ManagerInfo_ActionInfo_ManagerInfo_Id" />
+        <AssociationConnector Association="MosoNetModel.RoleInfoActionInfo" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,11 @@
+G:\0413ForWork\Moso.NetworkM\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+G:\0413ForWork\Moso.NetworkM\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+G:\0413ForWork\Moso.NetworkM\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+G:\0413ForWork\Moso.NetworkM\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+G:\0413ForWork\Moso.NetworkM\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+E:\0413ForWork\Moso.NetworkM\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+E:\0413ForWork\Moso.NetworkM\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+E:\0413ForWork\Moso.NetworkM\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+E:\0413ForWork\Moso.NetworkM\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+E:\0413ForWork\Moso.NetworkM\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+G:\0413ForWork\Moso.NetworkM\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache

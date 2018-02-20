@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MosoNetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ADInfo">
+    <Key>
+      <PropertyRef Name="AdAcount" />
+    </Key>
+    <Property Name="AdAcount" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AdDisplay" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="AdCode" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="DelFlag" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="MainInfo" Relationship="MosoNetModel.FK_MainInfo_ADInfo" FromRole="ADInfo" ToRole="MainInfo" />
+  </EntityType>
+  <EntityType Name="PermissionInfo">
+    <Key>
+      <PropertyRef Name="PId" />
+    </Key>
+    <Property Name="PId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PRemark" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="PSubTime" Type="DateTime" Precision="3" />
+    <Property Name="DelFlag" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="MainInfo" Relationship="MosoNetModel.MainInfoPermissionInfo" FromRole="PermissionInfo" ToRole="MainInfo" />
+  </EntityType>
+  <EntityType Name="StaffInfo">
+    <Key>
+      <PropertyRef Name="EmpId" />
+    </Key>
+    <Property Name="EmpId" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StaffName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Company" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Depart" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Position" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Floor" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="DelFlag" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="MainInfo" Relationship="MosoNetModel.FK_MainInfo_StaffInfo" FromRole="StaffInfo" ToRole="MainInfo" />
+  </EntityType>
+  <EntityContainer Name="MosoNetEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ADInfo" EntityType="Self.ADInfo" />
+    <EntitySet Name="PermissionInfo" EntityType="Self.PermissionInfo" />
+    <EntitySet Name="StaffInfo" EntityType="Self.StaffInfo" />
+    <EntitySet Name="MainInfo" EntityType="MosoNetModel.MainInfo" />
+    <AssociationSet Name="FK_MainInfo_ADInfo" Association="MosoNetModel.FK_MainInfo_ADInfo">
+      <End Role="ADInfo" EntitySet="ADInfo" />
+      <End Role="MainInfo" EntitySet="MainInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MainInfo_StaffInfo" Association="MosoNetModel.FK_MainInfo_StaffInfo">
+      <End Role="StaffInfo" EntitySet="StaffInfo" />
+      <End Role="MainInfo" EntitySet="MainInfo" />
+    </AssociationSet>
+    <AssociationSet Name="MainInfoPermissionInfo" Association="MosoNetModel.MainInfoPermissionInfo">
+      <End Role="MainInfo" EntitySet="MainInfo" />
+      <End Role="PermissionInfo" EntitySet="PermissionInfo" />
+    </AssociationSet>
+    <EntitySet Name="EmailInfo" EntityType="MosoNetModel.EmailInfo" />
+    <AssociationSet Name="FK_MainInfo_EmailInfo" Association="MosoNetModel.FK_MainInfo_EmailInfo">
+      <End Role="EmailInfo" EntitySet="EmailInfo" />
+      <End Role="MainInfo" EntitySet="MainInfo" />
+    </AssociationSet>
+    <EntitySet Name="ManagerInfo" EntityType="MosoNetModel.ManagerInfo" />
+    <EntitySet Name="RoleInfo" EntityType="MosoNetModel.RoleInfo" />
+    <AssociationSet Name="ManagerInfoRoleInfo" Association="MosoNetModel.ManagerInfoRoleInfo">
+      <End Role="ManagerInfo" EntitySet="ManagerInfo" />
+      <End Role="RoleInfo" EntitySet="RoleInfo" />
+    </AssociationSet>
+    <EntitySet Name="ActionInfo" EntityType="MosoNetModel.ActionInfo" />
+    <EntitySet Name="O_ManagerInfo_ActionInfo" EntityType="MosoNetModel.O_ManagerInfo_ActionInfo" />
+    <AssociationSet Name="FK_O_ManagerInfo_ActionInfo_ActionInfo_Id" Association="MosoNetModel.FK_O_ManagerInfo_ActionInfo_ActionInfo_Id">
+      <End Role="ActionInfo" EntitySet="ActionInfo" />
+      <End Role="O_ManagerInfo_ActionInfo" EntitySet="O_ManagerInfo_ActionInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_O_ManagerInfo_ActionInfo_ManagerInfo_Id" Association="MosoNetModel.FK_O_ManagerInfo_ActionInfo_ManagerInfo_Id">
+      <End Role="ManagerInfo" EntitySet="ManagerInfo" />
+      <End Role="O_ManagerInfo_ActionInfo" EntitySet="O_ManagerInfo_ActionInfo" />
+    </AssociationSet>
+    <AssociationSet Name="RoleInfoActionInfo" Association="MosoNetModel.RoleInfoActionInfo">
+      <End Role="ActionInfo" EntitySet="ActionInfo" />
+      <End Role="RoleInfo" EntitySet="RoleInfo" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="MainInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpId" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="StaffName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="EAddress" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="AdAcount" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="AdCode" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="CompName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Ip" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="MacAddress" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="PCAsset" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="ScreenAsset" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="DelFlag" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="ADInfo" Relationship="MosoNetModel.FK_MainInfo_ADInfo" FromRole="MainInfo" ToRole="ADInfo" />
+    <NavigationProperty Name="StaffInfo" Relationship="MosoNetModel.FK_MainInfo_StaffInfo" FromRole="MainInfo" ToRole="StaffInfo" />
+    <NavigationProperty Name="PermissionInfo" Relationship="MosoNetModel.MainInfoPermissionInfo" FromRole="MainInfo" ToRole="PermissionInfo" />
+    <NavigationProperty Name="EmailInfo" Relationship="MosoNetModel.FK_MainInfo_EmailInfo" FromRole="MainInfo" ToRole="EmailInfo" />
+    <Property Name="SName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_MainInfo_ADInfo">
+    <End Type="MosoNetModel.ADInfo" Role="ADInfo" Multiplicity="0..1" />
+    <End Type="MosoNetModel.MainInfo" Role="MainInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ADInfo">
+        <PropertyRef Name="AdAcount" />
+      </Principal>
+      <Dependent Role="MainInfo">
+        <PropertyRef Name="AdAcount" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MainInfo_StaffInfo">
+    <End Type="MosoNetModel.StaffInfo" Role="StaffInfo" Multiplicity="0..1" />
+    <End Type="MosoNetModel.MainInfo" Role="MainInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StaffInfo">
+        <PropertyRef Name="EmpId" />
+      </Principal>
+      <Dependent Role="MainInfo">
+        <PropertyRef Name="EmpId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MainInfoPermissionInfo">
+    <End Type="MosoNetModel.MainInfo" Role="MainInfo" Multiplicity="*" />
+    <End Type="MosoNetModel.PermissionInfo" Role="PermissionInfo" Multiplicity="*" />
+  </Association>
+  <EntityType Name="EmailInfo">
+    <Key>
+      <PropertyRef Name="EAddress" />
+    </Key>
+    <Property Name="EAddress" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="EDisplay" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="EAcount" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="EPwd" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="EOut" Type="Int16" />
+    <Property Name="DelFlag" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="MainInfo" Relationship="MosoNetModel.FK_MainInfo_EmailInfo" FromRole="EmailInfo" ToRole="MainInfo" />
+  </EntityType>
+  <Association Name="FK_MainInfo_EmailInfo">
+    <End Type="MosoNetModel.EmailInfo" Role="EmailInfo" Multiplicity="0..1" />
+    <End Type="MosoNetModel.MainInfo" Role="MainInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmailInfo">
+        <PropertyRef Name="EAddress" />
+      </Principal>
+      <Dependent Role="MainInfo">
+        <PropertyRef Name="EAddress" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ManagerInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MName" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="MPwd" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="SubTime" Type="DateTime" Precision="0" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
+    <Property Name="Remark" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Sort" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DelFlag" Type="Int16" />
+    <NavigationProperty Name="RoleInfo" Relationship="MosoNetModel.ManagerInfoRoleInfo" FromRole="ManagerInfo" ToRole="RoleInfo" />
+    <NavigationProperty Name="O_ManagerInfo_ActionInfo" Relationship="MosoNetModel.FK_O_ManagerInfo_ActionInfo_ManagerInfo_Id" FromRole="ManagerInfo" ToRole="O_ManagerInfo_ActionInfo" />
+  </EntityType>
+  <EntityType Name="RoleInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Remark" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Sort" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DelFlag" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="ManagerInfo" Relationship="MosoNetModel.ManagerInfoRoleInfo" FromRole="RoleInfo" ToRole="ManagerInfo" />
+    <NavigationProperty Name="ActionInfo" Relationship="MosoNetModel.RoleInfoActionInfo" FromRole="RoleInfo" ToRole="ActionInfo" />
+  </EntityType>
+  <Association Name="ManagerInfoRoleInfo">
+    <End Type="MosoNetModel.ManagerInfo" Role="ManagerInfo" Multiplicity="*" />
+    <End Type="MosoNetModel.RoleInfo" Role="RoleInfo" Multiplicity="*" />
+  </Association>
+  <EntityType Name="ActionInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DelFlag" Type="Int16" Nullable="false" />
+    <Property Name="ActionInfoName" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Remark" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ActionInfoType" Type="Int16" Nullable="false" />
+    <Property Name="Sort" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="HttpMethod" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="ActionMethodName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="ControllerName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MenuIcon" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+    <Property Name="IconWidth" Type="Int32" Nullable="false" />
+    <Property Name="IconHeight" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="O_ManagerInfo_ActionInfo" Relationship="MosoNetModel.FK_O_ManagerInfo_ActionInfo_ActionInfo_Id" FromRole="ActionInfo" ToRole="O_ManagerInfo_ActionInfo" />
+    <NavigationProperty Name="RoleInfo" Relationship="MosoNetModel.RoleInfoActionInfo" FromRole="ActionInfo" ToRole="RoleInfo" />
+  </EntityType>
+  <EntityType Name="O_ManagerInfo_ActionInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ManagerInfo_Id" Type="Int32" Nullable="false" />
+    <Property Name="ActionInfo_Id" Type="Int32" Nullable="false" />
+    <Property Name="IsPass" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ActionInfo" Relationship="MosoNetModel.FK_O_ManagerInfo_ActionInfo_ActionInfo_Id" FromRole="O_ManagerInfo_ActionInfo" ToRole="ActionInfo" />
+    <NavigationProperty Name="ManagerInfo" Relationship="MosoNetModel.FK_O_ManagerInfo_ActionInfo_ManagerInfo_Id" FromRole="O_ManagerInfo_ActionInfo" ToRole="ManagerInfo" />
+  </EntityType>
+  <Association Name="FK_O_ManagerInfo_ActionInfo_ActionInfo_Id">
+    <End Type="MosoNetModel.ActionInfo" Role="ActionInfo" Multiplicity="1" />
+    <End Type="MosoNetModel.O_ManagerInfo_ActionInfo" Role="O_ManagerInfo_ActionInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ActionInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="O_ManagerInfo_ActionInfo">
+        <PropertyRef Name="ActionInfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_O_ManagerInfo_ActionInfo_ManagerInfo_Id">
+    <End Type="MosoNetModel.ManagerInfo" Role="ManagerInfo" Multiplicity="1" />
+    <End Type="MosoNetModel.O_ManagerInfo_ActionInfo" Role="O_ManagerInfo_ActionInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ManagerInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="O_ManagerInfo_ActionInfo">
+        <PropertyRef Name="ManagerInfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoleInfoActionInfo">
+    <End Type="MosoNetModel.ActionInfo" Role="ActionInfo" Multiplicity="*" />
+    <End Type="MosoNetModel.RoleInfo" Role="RoleInfo" Multiplicity="*" />
+  </Association>
+</Schema>

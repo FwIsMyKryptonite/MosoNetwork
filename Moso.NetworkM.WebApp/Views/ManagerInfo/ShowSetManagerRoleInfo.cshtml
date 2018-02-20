@@ -1,0 +1,53 @@
+﻿@{
+    Layout = null;
+}
+@using Moso.NetworkM.Model
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>为管理员分配权限</title>
+    <title>ShowSetManagerRoleInfo</title>
+    @*<script src="~/Scripts/jquery-1.8.2.min.js"></script>*@
+    <script src="~/Scripts/jquery-1.9.0.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+    function subForm() {
+        $("#setManagerRoleInfoForm").submit();
+    }
+    function afterSet(data) {
+        window.parent.afterSetManagerRoleInfo(data);
+    }
+    </script>
+</head>
+<body>
+    <div>
+        为@{
+            ManagerInfo managerInfo = ViewBag.ManagerInfo;
+            <span style="font-size:14px;color:red;font-weight:bold">@managerInfo.MName</span>
+        }分配角色<br />
+        @{
+            using (Ajax.BeginForm("SetManagerRoleInfo", "ManagerInfo", new { }, new AjaxOptions() { OnSuccess = "afterSet", HttpMethod = "post" }, new { id = "setManagerRoleInfoForm" }))
+            {
+                <input type="hidden" name="managerId" value="@managerInfo.Id" />
+                List<RoleInfo> allRoleInfo = ViewBag.AllRoleInfo;
+                List<int> owedRoleInfoIdList = ViewBag.OwedRoleInfoIdList;
+                foreach (RoleInfo roleInfo in allRoleInfo)
+                {
+                    var tagName = "cba_" + roleInfo.Id;
+                    if (owedRoleInfoIdList.Contains(roleInfo.Id))
+                    {
+
+                        <input type="checkbox" name="@tagName" value="@roleInfo.Id" checked="checked" />@roleInfo.RoleName
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="@tagName" value="@roleInfo.Id" />@roleInfo.RoleName
+                    }
+                }
+            }
+        }
+    </div>
+</body>
+</html>

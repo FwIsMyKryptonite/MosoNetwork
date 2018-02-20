@@ -1,0 +1,11 @@
+G:\0413ForWork\Moso.NetworkM\substringTest\bin\Debug\substringTest.exe.config
+G:\0413ForWork\Moso.NetworkM\substringTest\bin\Debug\substringTest.exe
+G:\0413ForWork\Moso.NetworkM\substringTest\bin\Debug\substringTest.pdb
+G:\0413ForWork\Moso.NetworkM\substringTest\obj\Debug\substringTest.exe
+G:\0413ForWork\Moso.NetworkM\substringTest\obj\Debug\substringTest.pdb
+E:\0413ForWork\Moso.NetworkM\substringTest\bin\Debug\substringTest.exe.config
+E:\0413ForWork\Moso.NetworkM\substringTest\bin\Debug\substringTest.exe
+E:\0413ForWork\Moso.NetworkM\substringTest\bin\Debug\substringTest.pdb
+E:\0413ForWork\Moso.NetworkM\substringTest\obj\Debug\substringTest.exe
+E:\0413ForWork\Moso.NetworkM\substringTest\obj\Debug\substringTest.pdb
+G:\0413ForWork\Moso.NetworkM\substringTest\obj\Debug\substringTest.csprojResolveAssemblyReference.cache

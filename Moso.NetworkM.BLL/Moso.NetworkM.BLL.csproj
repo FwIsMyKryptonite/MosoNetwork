@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F44F3B14-0557-4C76-AC54-38C0B7ADD6C6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Moso.NetworkM.BLL</RootNamespace>
+    <AssemblyName>Moso.NetworkM.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseService.cs" />
+    <Compile Include="IManager.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainInfoService.cs" />
+    <Compile Include="ManagerInfoService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Moso.NetworkM.Common\Moso.NetworkM.Common.csproj">
+      <Project>{5ed2c448-0d64-4c87-ba0a-099ab0810342}</Project>
+      <Name>Moso.NetworkM.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Moso.NetworkM.DALFactory\Moso.NetworkM.DALFactory.csproj">
+      <Project>{0d85ded0-4949-4baf-9589-2b49dcebb63a}</Project>
+      <Name>Moso.NetworkM.DALFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Moso.NetworkM.IBLL\Moso.NetworkM.IBLL.csproj">
+      <Project>{0ad1ee73-2f3e-4c0a-bb3c-4eb1f19c6c81}</Project>
+      <Name>Moso.NetworkM.IBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Moso.NetworkM.IDAL\Moso.NetworkM.IDAL.csproj">
+      <Project>{e54f9c2f-0c56-4a6f-841c-4c33e917789b}</Project>
+      <Name>Moso.NetworkM.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Moso.NetworkM.Model\Moso.NetworkM.Model.csproj">
+      <Project>{6be3eb2e-92cb-4461-94f1-ac133cc913f6}</Project>
+      <Name>Moso.NetworkM.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IManager.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IManager.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

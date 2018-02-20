@@ -1,0 +1,8 @@
+G:\0413ForWork\Moso.NetworkM\AboutSession\bin\Debug\AboutSession.dll
+G:\0413ForWork\Moso.NetworkM\AboutSession\bin\Debug\AboutSession.pdb
+G:\0413ForWork\Moso.NetworkM\AboutSession\obj\Debug\AboutSession.dll
+G:\0413ForWork\Moso.NetworkM\AboutSession\obj\Debug\AboutSession.pdb
+E:\0413ForWork\Moso.NetworkM\AboutSession\bin\Debug\AboutSession.dll
+E:\0413ForWork\Moso.NetworkM\AboutSession\bin\Debug\AboutSession.pdb
+E:\0413ForWork\Moso.NetworkM\AboutSession\obj\Debug\AboutSession.dll
+E:\0413ForWork\Moso.NetworkM\AboutSession\obj\Debug\AboutSession.pdb

@@ -1,0 +1,438 @@
+﻿@* /MainInfo/Index *@
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+    <link href="~/MyScript/ligerUIV1.1.9/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <link href="~/MyScript/ligerUIV1.1.9/skins/ligerui-icons.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.9.0.min.js"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/core/base.js"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerGrid.js" type="text/javascript"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerToolBar.js" type="text/javascript"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerResizable.js" type="text/javascript"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerCheckBox.js" type="text/javascript"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerTextBox.js" type="text/javascript"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerDialog.js" type="text/javascript"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerMessageBox.js"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerDrag.js"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerTip.js"></script>
+    <script src="~/MyScript/LigerUIV1.3.3/js/plugins/ligerButton.js"></script>
+    <script src="~/MyScript/ligerUIV1.1.9/js/plugins/ligerComboBox.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @*<script src="~/MyScript/LigerUIV1.3.3/js/ligerui.min.js"></script>*@
+    <style type="text/css">
+        #showMainInfoEmailDetailDiv td {
+            /*border-left: 1px solid #C1DAD7;
+            border-right: 1px solid #C1DAD7;
+            border-bottom: 1px solid #C1DAD7;*/
+            /*background: #fff;
+            font-size: 11px;*/
+            padding: 3px 3px 3px 3px;
+            /*color: #4f6b72;*/
+        }
+
+        /*.l-selected .l-grid-row-cell, .l-grid-row-over {
+            background: gray;}*/
+    </style>
+    <script type="text/javascript">
+        var i = 0;
+        var grid, s;
+        var selectItems = [{ field: "StaffName", name: "姓名" }, { field: "EmpId", name: "工号" }, { field: "AdAcount", name: "域账户" }, { field: "Ip", name: "ip地址" }, { field: "MacAddress", name: "mac地址" }, { field: "Asset", name: "资产编码" }];
+        //enter按钮按下后触发
+        document.onkeydown = function () {
+            if (event.keyCode == 13) {
+                document.all("selectButton").click();
+            }
+        }
+
+        //所有dom元素加载完成后执行
+        $(function () {
+            s = $("#selectItems").ligerComboBox({ data: selectItems, valueField: "field", textField: "name", initValue: "StaffName", width: 100 });
+            $("#selectButton").ligerButton({ click: searchButtonClick });
+            loadGridData();
+            searchButtonClick();
+        });
+
+        //搜索按钮点击后触发
+        function searchButtonClick() {
+            if ($("#txtSearch").val() != "" && $("#txtSearch").val().trim().length != 0) {
+                var pars = { queryOption: s.getValue(), queryText: $("#txtSearch").val(), };// changepage: 1 };
+                grid.changePage("first");//重置分页
+            }
+            loadGridData(pars);
+        }
+
+        //分页加载数据
+        function loadGridData(pars) {
+            grid = $("#maingrid").ligerGrid({
+                //title: '用户管理',
+                url: '/MainInfo/GetMainInfoList',
+                parms: pars,
+                root: 'Rows',//数据源字段名,默认Rows
+                record: 'Total',//数据源记录数字段名,默认Total
+                pageParmName: 'page',//页索引参数名，(提交给服务器),默认page
+                pagesizeParmName: 'pagesize',//页记录数参数名，(提交给服务器),默认pagesize
+                height: '100%',
+                width: '100%',
+                inWindow: true,
+                rowHeight: 22,//行默认高度22
+                headerRowHeight: 23,//表头行的高度默认23
+                pageSize: 15,//默认每页显示数据量
+                pageSizeOptions: [15, 20, 30, 40, 50],  //可选择设定的每页结果数
+                rownumbers: false,//显示行数
+                isScroll: false,//是否允许右侧滚动条
+                alternatingRow: true,//是否附加奇偶行效果行
+                frozen: true,
+                resizable: true,
+                //allowUnSelectRow: true, //再次点击后取消选中
+                //checkbox: true,//是否显示checkbox
+                //selectRowButtonOnly: true,//只允许点击checkbox选中
+                //enabledEdit: true,//允许编辑
+                //detailToEdit: true,//是否启用明细编辑模式,默认false
+                //frozenDetail :true,
+                //colDraggable: true,
+                //rowDraggable: true,
+                columns: [
+                { display: '<b>编号</b>', name: 'Id', width: 30, frozen: true },
+                {
+                    frozen: true,
+                    display: '<b>员工信息</b>',
+                    columns:
+                        [
+
+                            { display: '姓名', name: 'StaffName', minWidth: 0, editor: { type: 'text' }, frozen: true },
+                            { display: '工号', name: 'EmpId', width: 50, editor: { type: 'text' }, frozen: true },//align: 'left' },
+                        ]
+                },
+                {
+                    display: '<b>域信息</b>',
+                    columns: [
+                            { display: '账户', name: 'AdAcount', minWidth: 90, editor: { type: 'text' } },
+                            { display: '密码', name: 'AdCode', minWidth: 80, editor: { type: 'text' } },
+                    ]
+                },
+                {
+                    display: '<b>主机信息</b>',
+                    columns: [
+                        { display: 'IP地址', name: 'Ip', minWidth: 100, editor: { type: 'text' } },
+                        { display: '主机名', name: 'CompName', editor: { type: 'text' } },
+                        { display: 'Mac地址', name: 'MacAddress', minWidth: 130, editor: { type: 'text' } },
+                    ]
+                },
+                {
+                    display: '<b>邮箱</b>', name: 'EAddress', minWidth: 110, editor: { type: 'text' },
+                },
+                {
+                    display: '<b>资产信息</b>',
+                    columns: [
+                        { display: '主机', name: 'PCAsset', editor: { type: 'text' } },
+                        { display: '显示器', name: 'ScreenAsset', editor: { type: 'text' } },
+                    ]
+                },
+                ],
+
+                toolbar: {
+                    height: 50,
+                    items: [
+                    { text: '<b>增加</b>', icon: 'add', click: addMainInfo },
+                    { line: true },
+                    { text: '<b>删除</b>', img: '/Content/lib/ligerUI/skins/icons/delete.gif', click: deleteRow },
+                    { line: true },
+                    { text: '<b>修改</b>', icon: 'modify', click: itemclick },
+                    { line: true },
+                    { text: '<b>权限编辑</b>', icon: 'coffee', click: showActionDetail },
+                    { line: true },
+                    { text: '<b>邮箱明细</b>', icon: 'coffee', click: showEmailDetail },
+                    { line: true },
+                    { text: '<b>AD明细</b>', icon: 'coffee', click: showEmailDetail },
+                    ]
+                },
+                ////双击触发事件
+                //onDblClickRow: function (data, rowindex, rowobj) {
+                //    var t = $.ligerDialog.alert('选择的是' + data.Id);
+                //    setTimeout(function () { t.hide(); }, 1000);
+                //}
+            });
+            $("#pageloading").hide();
+        }
+
+        //添加用户按钮点击事件
+        //var j = 0;
+        //var nameId2 = "addMainInfo" + j;
+        function addMainInfo() {
+            $("#addMainInfoFormFrame").attr("src", "/MainInfo/ShowAddMainInfo");
+            var temp = $.ligerui.get("addMainInfoDialog");
+            if (temp == null) {
+                var form = $.ligerDialog.open({
+                    title: '用户添加',
+                    id: "addMainInfoDialog",
+                    //url: "/MainInfo/ShowAddMainInfo",
+                    target: $("#addMainInfoFormDiv"),
+                    width: 500,
+                    height: 300,
+                    isScroll: true,
+                    isResize: true,
+                    isHidden: true,
+                    buttons: [
+                        {
+                            text: '添加',
+                            onclick: function (item, dialog) {
+                                //var child = $("#" + nameId2)[0].contentWindow;
+                                var child = $("#addMainInfoFormFrame")[0].contentWindow;
+                                //var temp = child.subForm();
+                                //if (temp == "no") {
+                                //    return;
+                                //} else {
+                                //    dialog.hidden();
+                                //}
+                                child.subForm();
+                            }
+                        },
+                        {
+                            text: '取消',
+                            onclick: function (item, dialog) {
+                                dialog.hidden();
+                            }
+                        }
+                    ],
+                });
+                return form;
+            } else {
+                temp.show();
+                return temp;
+            }
+        }
+        //添加main用户后触发
+        function afterAddMainInfo(data) {
+            var dialog = $.ligerui.get("addMainInfoDialog");
+            dialog.hidden();
+            if (data == "ok") {
+                var t = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">添加成功哦<span/>' });
+                setTimeout(function () { t.hide(); }, 2000);
+            } else if (data == "no") {
+                var t = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">添加失败<span/>' });
+                setTimeout(function () { t.hide(); }, 2000);
+            } else {
+                var t = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">该用户已经存在<span/>' });
+                setTimeout(function () { t.hide(); }, 2000);
+            }
+        }
+
+        //菜单栏按钮点击事件
+        function itemclick(item) {
+            alert(item.text);
+        }
+
+        //菜单栏删除按钮点击事件
+        function deleteRow() {
+            grid.deleteSelectedRow();
+        }
+
+
+        //菜单栏权限详情点击事件
+        function showActionDetail() {
+            var gridManager = $("#maingrid").ligerGetGridManager();
+            //var gridManager = $("#maingrid").ligerGrid();
+            //var row = gridManager.getSelectedRow();
+            //alert(row.StaffName);
+            //var rows = $("#maingrid").ligerGrid().getSelectedRow();
+            //alert(rows.StaffName);
+            var rows = gridManager.getCheckedRows();
+            //alert(rows[0].StaffName);
+            //alert(rows.length);
+            if (rows.length == 0) {
+                //$.ligerMessageBox.success({ title: '标题', content: '内容' });
+                //$.ligerMessageBox.warn({ title: '提阿斯蒂芬按时奥斯丁示', content: '您未选中任上帝发誓 的发射点法何数据' });
+                //$.ligerDialog.warn('asdf', 'gsdf');
+                $.ligerDialog.alert('您未选中任何数据', '提示', 'none');
+                return;
+            }
+            //$("#showMainInfoActionDetail").attr("src", "/MainInfo/showMainInfoActionDetail/?mainId=" + rows[0].Id);//先给iframe的src赋值
+            var nameId = "actionInfoDetail" + i;
+            $.ligerDialog.open({
+                title: '权限分配',
+                //id:'actionInfo',//给LigerUI.Dialog对象创建Id属性
+                //content: 'sdfsadfs',//内容追加
+                //target: $("#showMainInfoActionDetailDiv"),//$("#showMainInfoActionDetail"),//目标对象，指定它将以appendTo()的方式载入
+                url: "/MainInfo/showMainInfoActionDetail/?mainId=" + rows[0].Id,//目标页url，默认以iframe的方式载入
+                name: nameId,//作为上面创建的iframe的name和id属性
+                height: null,//null表示自适应
+                width: 280,//null表示自适应
+                isHidden: true,//关闭对话框时是否只是隐藏，还是销毁对话框,默认true
+                isResize: false,//是否可调整大小，默认true
+                slide: false,//是否启动动画效果,默认false
+                buttons: [
+                    {
+                        text: '确定',
+                        onclick: function (item, dialog) {
+                            var childWindow = $("#" + nameId)[0].contentWindow; //$("#showMainInfoActionDetail")[0].contentWindow;
+                            childWindow.subForm();
+                            i++;
+                            dialog.hide();
+                        }
+                    },
+                    {
+                        text: '取消',
+                        onclick: function (item, dialog) {
+                            dialog.hidden();
+                        }
+                    }
+                ]
+            });
+        }
+
+        //设置权限之后触发方法
+        function afterSetMainPermission(data) {
+            if (data == "noChange") {
+                var t = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">您未做任何更改<span/>' });
+                setTimeout(function () { $(t.element).slideUp(600); }, 1000);
+            } else if (data == "ok") {
+                var t = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">权限变更成功哦<span/>' });
+                setTimeout(function () { $(t.element).slideUp(600); }, 1000);
+            } else {
+                var t = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">服务器忙,请稍后再试<span/>' });
+                setTimeout(function () { $(t.element).slideUp(600); }, 1000);
+            }
+        }
+
+        //邮箱明细
+        function showEmailDetail() {
+            var rows = grid.getCheckedRows();
+            if (rows.length == 0) {
+                $.ligerDialog.alert('请选择行数据', '提示', 'none');
+                return;
+            }
+            $.post("/MainInfo/ShowMainInfoEmailDetail", { "Id": rows[0].Id }, function (data) {
+                //var serverData = JSON.parse(data);//高版js(jquery-1.9.0.min.js)能直接接收Json数据,不需要再转换
+                if (data != "no") {
+                    $("#666").remove();
+                    $('#txtEDisplay').val(data.EDisplay);
+                    $('#txtEAcount').val(data.EAcount);
+                    $('#txtEPwd').val(data.EPwd);
+                    $('#txtEAddress').val(data.EAddress);
+                    $("#txtMainId").val(rows[0].Id);//给隐藏域赋值
+                    var a = parseInt(data.EOut);
+                    if (a == 1) {
+                        $("<tr id='666'><td><span style='color:red'>外邮权限：</span></td><td><input type='checkbox' id='checkEOut' name='EOut' checked='checked' value='1' /></td></tr>").appendTo("#showEmailInfoTable")
+                    } else {
+                        $("<tr id='666'><td><span style='color:red'>外邮权限：</span></td><td><input type='checkbox' id='checkEOut' name='EOut' value='0' /></td></tr>").appendTo("#showEmailInfoTable")
+                    }
+                } else {
+                    $.ligerDialog.alert('该用户还未拥有一个邮箱', '提示', 'none');
+                }
+            });
+            var emailOut = $("#checkEOut").attr("checked");
+            $.ligerDialog.open({
+                title: '邮箱信息明细',
+                target: $("#showMainInfoEmailDetailDiv"),
+                height: null,//null表示自适应
+                width: 280,//null表示自适应
+                isResize: true,//是否可调整大小，默认true
+                isHidden: true,//关闭对话框时是否只是隐藏，还是销毁对话框,默认true
+                buttons: [
+                    {
+                        text: '确定',
+                        onclick: function (item, dialog) {
+                            $("#MainInfoEmailInfos").submit();
+                            dialog.hidden();
+                        }
+                    },
+        {
+            text: '取消',
+            onclick: function (item, dialog) {
+                dialog.hidden();
+            }
+        }
+                ]
+            });
+        }
+
+
+        function afterSetEmail(data) {
+            if (data == "noChange") {
+                var t = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">您未做任何更改<span/>' });
+                setTimeout(function () { t.hide(); }, 2000);
+            } else if (data == "ok") {
+                var t = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">保存成功<span/>' });
+                setTimeout(function () { t.hide(); }, 2000);
+                searchButtonClick();
+            } else {
+                var t = $.ligerDialog.tip({ id: '6666', title: '提示信息', width: 220, height: 120, content: '<span style="color:red">保存失败，请稍后再试<span/>' });
+                setTimeout(function () { t.hide(); }, 2000);
+            }
+
+        }
+
+    </script>
+</head>
+<body style="padding: 3px; overflow: hidden;">
+    @* 隐藏右侧和下面滚动条 *@
+    <div class="l-loading" style="display:block" id="pageloading"></div>
+    <a class="l-button" style="width:120px;float:left; margin-left:10px; display:none;" onclick="deleteRow()">删除选择的行</a>
+    <div class="l-clear"></div>
+    <!-------------------用户数据展示---------------------->
+    <div id="mainInfoDataDiv">
+        <!-------------------条件搜索---------------------->
+        <div id="selectDiv" style="margin-bottom:5px;margin-left:10px">
+            <table>
+                <tr>
+                    @*<td><span style="font-size:14px;font-weight:bold">搜索条件:&nbsp;&nbsp;</span></td>*@
+                    <td><span style="font-size:14px;font-weight:bold">按&nbsp;</span></td>
+                    <td><input type="text" id="selectItems" style="color:red" /></td>
+                    <td><span style="font-size:14px;font-weight:bold">&nbsp;搜索:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                    <td><input type="text" id="txtSearch" /></td>
+                    <td><span>&nbsp;&nbsp;</span></td>
+                    <td><input type="button" id="selectButton" value="GO!" /></td>
+                </tr>
+            </table>
+        </div>
+        <!-------------------数据表格---------------------->
+        <div id="maingrid"></div>
+    </div>
+    <div style="display:none;"></div>
+    <!-------------------用户权限详情---------------------->
+    @*<div id="showMainInfoActionDetailDiv" style="display:none;overflow:hidden">
+            <iframe id="showMainInfoActionDetail" width="100%" height="100%" frameborder="0"></iframe>
+        </div>*@
+    <!-------------------邮箱详情---------------------->
+    <div id="showMainInfoEmailDetailDiv" style="display:none">
+        @{
+            @*using (Ajax.BeginForm){}需要引入  <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+            using (Ajax.BeginForm("EditeMainInfoEmailInfo", "maininfo", new { }, new AjaxOptions() { OnSuccess = "afterSetEmail", HttpMethod = "post" }, new { id = "MainInfoEmailInfos" }))
+            {
+                <table id="showEmailInfoTable">
+                    <tr>
+                        <td>显示名称:</td>
+                        <td><input type="text" id="txtEDisplay" name="EDisplay" /></td>
+                    </tr>
+                    <tr>
+                        <td>邮箱账户：</td>
+                        <td><input type="text" id="txtEAcount" name="EName" /></td>
+                    </tr>
+                    <tr>
+                        <td>密码：</td>
+                        <td><input type="text" id="txtEPwd" name="EPwd" /></td>
+                    </tr>
+                    <tr>
+                        <td>详细地址：</td>
+                        <td><input type="text" id="txtEAddress" name="EAddress" /></td>
+                    </tr>
+                    <tr>
+                        <td><input type="hidden" id="txtMainId" name="mainId" /></td>
+                    </tr>
+                </table>
+            }
+        }
+    </div>
+    <!-------------------添加用户表单---------------------->
+    <div id="addMainInfoFormDiv" style="display:none;height:235px">
+        <iframe id="addMainInfoFormFrame" frameborder="0"></iframe>
+    </div>
+</body>
+</html>
